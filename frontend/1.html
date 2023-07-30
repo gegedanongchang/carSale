@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>税金计算表</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+}
+
+#taxTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#taxTable th, #taxTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#taxTable th {
+    background-color: #f2f2f2;
+    color: black;
+}
+
+</style>
+</head>
+<body>
+    <table id="taxTable">
+        <thead>
+            <tr>
+                <th>年收</th>
+                <th>自己交</th>
+                <th>公司交</th>
+            </tr>
+        </thead>
+        <tbody id="taxTableBody">
+        </tbody>
+    </table>
+    <script>
+
+window.onload = function() {
+    var tableBody = document.getElementById('taxTableBody');
+    for(var income = 100; income <= 800; income += 20){
+        var row = document.createElement('tr');
+
+        var incomeCell = document.createElement('td');
+        incomeCell.innerText = income + "万";
+        row.appendChild(incomeCell);
+
+        var personalTax = (income - 100) * 0.1 + 1.66 * 12;
+        var personalTaxCell = document.createElement('td');
+        personalTaxCell.innerText = personalTax.toFixed(2) + "万";
+        row.appendChild(personalTaxCell);
+
+        var companyTax = income * 0.14;
+        var companyTaxCell = document.createElement('td');
+        companyTaxCell.innerText = companyTax.toFixed(2) + "万";
+        row.appendChild(companyTaxCell);
+
+        // 如果个人税低，设置个人税单元格背景色为绿色
+        if (personalTax < companyTax) {
+            personalTaxCell.style.backgroundColor = "green";
+        }
+        // 如果公司税低，设置公司税单元格背景色为绿色
+        else {
+            companyTaxCell.style.backgroundColor = "green";
+        }
+
+        tableBody.appendChild(row);
+    }
+}
+
+
+    </script>
+</body>
+</html>
